@@ -12,6 +12,7 @@ on:
 env:
   include-publish: ${{ github.event_name != 'pull_request' && github.ref_name == 'main' }}
   OTHER_PUBLISH: ${{ github.event_name != 'pull_request' && github.ref_name == 'main' }}
+  TEST_FALSE: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   Execute:
@@ -20,15 +21,19 @@ jobs:
       - name: Test
         run: |
           printenv
+      - name: Test FALSE
+        if: ${{ env.TEST_FALSE == 'true' }}
+        run: |
+          echo "RAN FALSE"
       - name: Test 1
-        if: ${{ env.include-publish }}
+        if: ${{ env.include-publish == 'true' }}
         run: |
           echo "RAN 1"
       - name: Test 2
-        if: ${{ env.OTHER_PUBLISH }}
+        if: ${{ env.OTHER_PUBLISH == 'true' }}
         run: |
           echo "RAN 2"
       - name: Test 3
-        if: ${{ env['include-publish'] }}
+        if: ${{ env['include-publish'] == 'true' }}
         run: |
           echo "RAN 3"

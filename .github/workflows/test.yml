@@ -1,0 +1,22 @@
+name: Test
+on:
+  workflow_dispatch: #true
+
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  include-publish: ${{ github.event_name != 'pull_request' && github.ref_name == 'main' }}
+  OTHER_PUBLISH: ${{ github.event_name != 'pull_request' && github.ref_name == 'main' }}
+
+jobs:
+  Execute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: |
+          printenv

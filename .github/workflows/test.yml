@@ -20,3 +20,15 @@ jobs:
       - name: Test
         run: |
           printenv
+      - name: Test 1
+        if: ${{ env.include-publish }}
+        run: |
+          echo "RAN 1"
+      - name: Test 2
+        if: ${{ env.OTHER_PUBLISH }}
+        run: |
+          echo "RAN 2"
+      - name: Test 3
+        if: ${{ env['include-publish'] }}
+        run: |
+          echo "RAN 3"

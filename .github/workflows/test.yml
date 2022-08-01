@@ -22,7 +22,7 @@ jobs:
         run: |
           printenv
       - name: Test FALSE
-        if: ${{ env.TEST_FALSE == 'true' }}
+        if: ${{ env.TEST_FALSE }}
         run: |
           echo "RAN FALSE"
       - name: Test 1
